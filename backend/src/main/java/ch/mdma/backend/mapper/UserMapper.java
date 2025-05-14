@@ -6,7 +6,7 @@ public class UserMapper {
 
     private UserMapper() {}
 
-    public static User toResponse(ch.mdma.backend.data.model.entity.User entity) {
+    public static User toRest(ch.mdma.backend.data.model.entity.User entity) {
         if (entity == null) return null;
 
         User dto = new User();
