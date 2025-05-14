@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-public class RestAuthController implements UserApi {
+public class RestUserController implements UserApi {
 
     private final CurrentUserProvider currentUserProvider;
 
