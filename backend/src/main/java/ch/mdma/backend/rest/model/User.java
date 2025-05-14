@@ -22,8 +22,6 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.13.0")
 public class User {
 
-  private String id;
-
   private String username;
 
   private String email;
@@ -39,30 +37,9 @@ public class User {
   /**
    * Constructor with only required parameters
    */
-  public User(String id, String username, String email) {
-    this.id = id;
+  public User(String username, String email) {
     this.username = username;
     this.email = email;
-  }
-
-  public User id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   */
-  @NotNull 
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
   }
 
   public User username(String username) {
@@ -154,8 +131,7 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(this.id, user.id) &&
-        Objects.equals(this.username, user.username) &&
+    return Objects.equals(this.username, user.username) &&
         Objects.equals(this.email, user.email) &&
         Objects.equals(this.firstName, user.firstName) &&
         Objects.equals(this.lastName, user.lastName);
@@ -163,14 +139,13 @@ public class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, email, firstName, lastName);
+    return Objects.hash(username, email, firstName, lastName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");

@@ -1,25 +1,26 @@
 package ch.mdma.backend.rest.controller;
 
-import ch.mdma.backend.rest.model.User;
-import ch.mdma.backend.rest.model.dto.UserResponse;
+import ch.mdma.backend.data.model.entity.User;
+import ch.mdma.backend.mapper.UserMapper;
+import ch.mdma.backend.rest.api.UserApi;
 import ch.mdma.backend.security.annotation.CurrentUser;
+import ch.mdma.backend.security.util.CurrentUserProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/")
 @RequiredArgsConstructor
-public class RestAuthController {
+public class RestAuthController implements UserApi {
 
-    @GetMapping("/user/me")
-    public UserResponse getMe(@CurrentUser User user) {
-        return new UserResponse(
-                user.getUsername(),
-                user.getEmail(),
-                user.getFirstName(),
-                user.getLastName()
-        );
+    private final CurrentUserProvider currentUserProvider;
+
+    @Override
+    public ResponseEntity<ch.mdma.backend.rest.model.User> getCurrentUser() {
+        User currentUser = currentUserProvider.getCurrentUser();
+        return ResponseEntity.ok(UserMapper.toResponse(currentUser));
     }
 }
