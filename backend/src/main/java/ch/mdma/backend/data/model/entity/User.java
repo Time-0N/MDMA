@@ -1,4 +1,4 @@
-package ch.mdma.backend.model.entity;
+package ch.mdma.backend.data.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

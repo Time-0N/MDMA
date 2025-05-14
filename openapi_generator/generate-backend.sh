@@ -24,7 +24,7 @@ npx openapi-generator-cli generate \
   -i "$OPENAPI_SPEC" \
   -g spring \
   -o "$GEN_DIR" \
-  --additional-properties=interfaceOnly=true,useTags=true,skipDefaultInterface=true,hideGenerationTimestamp=true \
+  --additional-properties=interfaceOnly=true,useTags=true,skipDefaultInterface=true,hideGenerationTimestamp=true,useSpringBoot3=true,jakarta=true \
   --skip-validate-spec
 
 # === STEP 3: Copy and fix packages/imports ===
