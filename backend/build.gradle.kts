@@ -1,28 +1,64 @@
 plugins {
-    java
-    id("org.springframework.boot") version "3.4.4"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("org.hibernate.orm") version "6.6.11.Final"
-    id("org.graalvm.buildtools.native") version "0.10.6"
+    id("org.springframework.boot") version "3.3.0"
+    id("io.spring.dependency-management") version "1.1.4"
+    id("java")
+    id("com.google.cloud.tools.jib") version "3.4.0"
+    id("org.openapi.generator") version "7.7.0"
 }
 
-group = "ch.mdma"
+group = "com.example"
 version = "0.0.1-SNAPSHOT"
+
+
+// === OpenAPI config ===
+val openApiSpec = "$rootDir/docs/openapi/openapi.yaml"
+
+openApiGenerate {
+    inputSpec.set(openApiSpec)
+    generatorName.set("spring")
+    outputDir.set("$projectDir/src/main/java")
+
+    apiPackage.set("ch.mdma.rest.generated")
+    modelPackage.set("ch.mdma.rest.generated.model")
+    invokerPackage.set("ch.mdma.rest.generated")
+
+    globalProperties.set(
+        mapOf(
+            "apis" to "",
+            "models" to "",
+            "supportingFiles" to "false"
+        )
+    )
+
+    configOptions.set(
+        mapOf(
+            "useJakartaEe" to "true",
+            "useSpringBoot3" to "true",
+            "interfaceOnly" to "true",
+            "skipDefaultInterface" to "true",
+            "sourceFolder" to "",
+            "additionalModelTypeAnnotations" to "@lombok.Data @lombok.AllArgsConstructor @lombok.Builder"
+        )
+    )
+}
+
+
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 repositories {
     mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.security:spring-security-bom:6.2.3")
+        mavenBom("org.keycloak.bom:keycloak-adapter-bom:24.0.3")
+    }
 }
 
 dependencies {
@@ -67,12 +103,12 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 }
 
-hibernate {
-    enhancement {
-        enableAssociationManagement = true
-    }
-}
-
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+jib {
+    to {
+        image = "montagsmaler-backend:latest"
+    }
 }

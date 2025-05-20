@@ -1,18 +1,46 @@
+import com.github.gradle.node.npm.task.NpmTask
+
 plugins {
-  base
+  id("com.github.node-gradle.node") version "7.0.0"
+  id("org.openapi.generator") version "7.7.0"
 }
 
-tasks.register<Exec>("npmInstall") {
-  workingDir = file(".")
-  commandLine = listOf("npm", "install")
+val generateFrontendApi by tasks.registering(org.openapitools.generator.gradle.plugin.tasks.GenerateTask::class) {
+  inputSpec.set("$rootDir/docs/openapi/openapi.yaml")
+  generatorName.set("typescript-angular")
+  outputDir.set("$rootDir/frontend/src/app/generated")
+
+  configOptions.set(
+    mapOf(
+      "ngVersion" to "16.0.0",
+      "providedInRoot" to "true",
+      "useTags" to "false",
+      "modelPackage" to "models",
+      "apiPackage" to "service",
+      "apiModulePrefix" to ""
+    )
+  )
+
+  globalProperties.set(
+    mapOf(
+      "models" to "",
+      "apis" to "",
+      "supportingFiles" to ""
+    )
+  )
 }
 
-tasks.register<Exec>("ngBuild") {
+node {
+  download.set(true)
+  version.set("20.0.0")
+}
+
+tasks.register<NpmTask>("npmBuild") {
   dependsOn("npmInstall")
-  workingDir = file(".")
-  commandLine = listOf("npx", "ng", "build")
+  args.set(listOf("run", "build"))
 }
 
-tasks.named("build") {
-  dependsOn("ngBuild")
+tasks.register<NpmTask>("npmStart") {
+  dependsOn("npmInstall")
+  args.set(listOf("run", "start"))
 }

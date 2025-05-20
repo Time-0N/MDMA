@@ -48,3 +48,31 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 Placeholder that will probbably get deleted
+
+---
+
+# Dev
+
+The MDMA project uses [OpenAPI Generator](https://openapi-generator.tech/) to automatically generate API client and server code from a shared OpenAPI specification file.
+
+---
+
+## 🧪 Backend Code Generation (Spring Boot)
+
+Generates Java interfaces and models for the REST API on the backend.
+
+./gradlew backend:openApiGenerate
+
+- 📄 Uses: `docs/openapi/openapi.yaml`
+- 📁 Outputs to: `backend/src/main/java/ch/mdma/rest/generated`
+
+---
+
+## 🧩 Frontend Code Generation (Angular)
+
+Generates TypeScript services and models to communicate with the backend API.
+
+./gradlew frontend:generateFrontendApi
+
+- 📄 Uses: `docs/openapi/openapi.yaml`
+- 📁 Outputs to: `frontend/src/app/generated`
