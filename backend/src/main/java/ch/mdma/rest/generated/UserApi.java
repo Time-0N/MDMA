@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-21T09:23:52.949184439+02:00[Europe/Zurich]", comments = "Generator version: 7.7.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-21T11:05:49.779422644+02:00[Europe/Zurich]", comments = "Generator version: 7.7.0")
 @Validated
 @Tag(name = "Admin", description = "the Admin API")
 public interface UserApi {
@@ -146,12 +146,13 @@ public interface UserApi {
 
 
     /**
-     * GET /user/me
+     * GET /user/me : Get current user
      *
      * @return User info (status code 200)
      */
     @Operation(
         operationId = "getCurrentUser",
+        summary = "Get current user",
         tags = { "User" },
         responses = {
             @ApiResponse(responseCode = "200", description = "User info", content = {
