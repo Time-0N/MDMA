@@ -5,6 +5,46 @@ info:
 servers:
   - url: http://localhost:9090/api
 paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      operationId: registerUser
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistrationRequest'
+      responses:
+        '201':
+          description: User registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegistrationResponse'
+
+  /auth/token:
+    post:
+      tags:
+        - Auth
+      operationId: loginUser
+      summary: Authenticate user and get token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationRequest'
+      responses:
+        '200':
+          description: Token response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
   /user/me:
     get:
       tags:
@@ -17,6 +57,98 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+
+  /user/update/user:
+    put:
+      tags:
+        - User
+      operationId: updateUser
+      summary: Update user data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUpdateResponse'
+
+  /user/delete/user:
+    delete:
+      tags:
+        - User
+      operationId: deleteUser
+      summary: Delete user
+      responses:
+        '204':
+          description: Deleted
+
+  /user/admin/get/all:
+    get:
+      tags:
+        - Admin
+      operationId: getAllUsers
+      summary: Get all users
+      responses:
+        '200':
+          description: All users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdUserMap'
+
+  /user/admin/delete-user/{userId}:
+    delete:
+      tags:
+        - Admin
+      operationId: adminDeleteUserById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the user to delete
+      responses:
+        '204':
+          description: User deleted successfully, no content returned
+        '404':
+          description: User not found
+        '403':
+          description: Forbidden - Admin access required
+
+  /user/admin/update-user/{userId}:
+    put:
+      tags:
+        - Admin
+      operationId: adminUpdateUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for editing the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserUpdateResponse'
 
 components:
   schemas:
@@ -32,3 +164,86 @@ components:
         lastName:
           type: string
       required: [id, username, email]
+
+    AuthenticationRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required: [ username, password ]
+
+    TokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          format: int64
+        refreshExpiresIn:
+          type: integer
+          format: int64
+        tokenType:
+          type: string
+
+    UserRegistrationRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      required: [ username, email, password ]
+
+    UserRegistrationResponse:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        token:
+          $ref: '#/components/schemas/TokenResponse'
+
+    IdUserMap:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/User'
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        aboutMe:
+          type: string
+
+    UserUpdateResponse:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        aboutMe:
+          type: string

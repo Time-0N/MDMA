@@ -15,24 +15,22 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * User
+ * TokenResponse
  */
 @lombok.Data @lombok.AllArgsConstructor @lombok.Builder
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-21T09:23:52.949184439+02:00[Europe/Zurich]", comments = "Generator version: 7.7.0")
-public class User {
+public class TokenResponse {
 
-  private String username;
+  private String accessToken;
 
-  private String email;
+  private String refreshToken;
 
-  private String firstName;
+  private Long expiresIn;
 
-  private String lastName;
+  private Long refreshExpiresIn;
 
-  public User() {
-    super();
-  }
+  private String tokenType;
 
 }
 

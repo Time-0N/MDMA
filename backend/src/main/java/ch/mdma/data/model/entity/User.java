@@ -1,11 +1,11 @@
 package ch.mdma.data.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -13,13 +13,21 @@ import lombok.Setter;
 @Setter
 public class User {
     @Id
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    @UuidGenerator
+    private UUID id;
+
+    @Column(nullable = false)
+    private String keycloakId;
 
     @Column(unique = true, nullable = false)
     private String username;
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(name = "about_me", columnDefinition = "TEXT")
+    private String aboutMe;
 
     private String firstName;
     private String lastName;

@@ -5,7 +5,10 @@
  */
 package ch.mdma.rest.generated;
 
+import java.util.Map;
 import ch.mdma.rest.generated.model.User;
+import ch.mdma.rest.generated.model.UserUpdateRequest;
+import ch.mdma.rest.generated.model.UserUpdateResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,10 +35,115 @@ import java.util.Map;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-20T13:54:58.529010146+02:00[Europe/Zurich]", comments = "Generator version: 7.7.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-05-21T09:23:52.949184439+02:00[Europe/Zurich]", comments = "Generator version: 7.7.0")
 @Validated
-@Tag(name = "User", description = "the User API")
+@Tag(name = "Admin", description = "the Admin API")
 public interface UserApi {
+
+    /**
+     * DELETE /user/admin/delete-user/{userId}
+     *
+     * @param userId Unique identifier of the user to delete (required)
+     * @return User deleted successfully, no content returned (status code 204)
+     *         or User not found (status code 404)
+     *         or Forbidden - Admin access required (status code 403)
+     */
+    @Operation(
+        operationId = "adminDeleteUserById",
+        tags = { "Admin" },
+        responses = {
+            @ApiResponse(responseCode = "204", description = "User deleted successfully, no content returned"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "403", description = "Forbidden - Admin access required")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        value = "/user/admin/delete-user/{userId}"
+    )
+    
+    ResponseEntity<Void> adminDeleteUserById(
+        @Parameter(name = "userId", description = "Unique identifier of the user to delete", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId
+    );
+
+
+    /**
+     * PUT /user/admin/update-user/{userId}
+     *
+     * @param userId Unique identifier for editing the user (required)
+     * @param userUpdateRequest  (required)
+     * @return Updated user (status code 200)
+     */
+    @Operation(
+        operationId = "adminUpdateUser",
+        tags = { "Admin" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Updated user", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserUpdateResponse.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        value = "/user/admin/update-user/{userId}",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    
+    ResponseEntity<UserUpdateResponse> adminUpdateUser(
+        @Parameter(name = "userId", description = "Unique identifier for editing the user", required = true, in = ParameterIn.PATH) @PathVariable("userId") String userId,
+        @Parameter(name = "UserUpdateRequest", description = "", required = true) @Valid @RequestBody UserUpdateRequest userUpdateRequest
+    );
+
+
+    /**
+     * DELETE /user/delete/user : Delete user
+     *
+     * @return Deleted (status code 204)
+     */
+    @Operation(
+        operationId = "deleteUser",
+        summary = "Delete user",
+        tags = { "User" },
+        responses = {
+            @ApiResponse(responseCode = "204", description = "Deleted")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        value = "/user/delete/user"
+    )
+    
+    ResponseEntity<Void> deleteUser(
+        
+    );
+
+
+    /**
+     * GET /user/admin/get/all : Get all users
+     *
+     * @return All users (status code 200)
+     */
+    @Operation(
+        operationId = "getAllUsers",
+        summary = "Get all users",
+        tags = { "Admin" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "All users", content = {
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/user/admin/get/all",
+        produces = { "application/json" }
+    )
+    
+    ResponseEntity<List<Map<String, User>>> getAllUsers(
+        
+    );
+
 
     /**
      * GET /user/me
@@ -59,6 +167,34 @@ public interface UserApi {
     
     ResponseEntity<User> getCurrentUser(
         
+    );
+
+
+    /**
+     * PUT /user/update/user : Update user data
+     *
+     * @param userUpdateRequest  (required)
+     * @return Updated user (status code 200)
+     */
+    @Operation(
+        operationId = "updateUser",
+        summary = "Update user data",
+        tags = { "User" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Updated user", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserUpdateResponse.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        value = "/user/update/user",
+        produces = { "application/json" },
+        consumes = { "application/json" }
+    )
+    
+    ResponseEntity<UserUpdateResponse> updateUser(
+        @Parameter(name = "UserUpdateRequest", description = "", required = true) @Valid @RequestBody UserUpdateRequest userUpdateRequest
     );
 
 }

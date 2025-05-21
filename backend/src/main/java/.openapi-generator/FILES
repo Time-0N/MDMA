@@ -1,2 +1,9 @@
+ch/mdma/rest/generated/AuthApi.java
 ch/mdma/rest/generated/UserApi.java
+ch/mdma/rest/generated/model/AuthenticationRequest.java
+ch/mdma/rest/generated/model/TokenResponse.java
 ch/mdma/rest/generated/model/User.java
+ch/mdma/rest/generated/model/UserRegistrationRequest.java
+ch/mdma/rest/generated/model/UserRegistrationResponse.java
+ch/mdma/rest/generated/model/UserUpdateRequest.java
+ch/mdma/rest/generated/model/UserUpdateResponse.java
