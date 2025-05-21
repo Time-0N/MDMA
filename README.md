@@ -76,3 +76,22 @@ Generates TypeScript services and models to communicate with the backend API.
 
 - 📄 Uses: `docs/openapi/openapi.yaml`
 - 📁 Outputs to: `frontend/src/app/generated`
+
+---
+
+## Docker Environment Variable Setup (.env File)
+
+For starting Compose File, needs .env in root dir.
+
+.env Template:
+```env
+# Database Configuration
+POSTGRES_DB=mdma_db
+POSTGRES_USER=mdma_user
+POSTGRES_PASSWORD=your_secure_password_here
+
+# Keycloak Configuration
+KEYCLOAK_ADMIN=admin
+KEYCLOAK_ADMIN_PASSWORD=your_secure_admin_password_here
+```
+
