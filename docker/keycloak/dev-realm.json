@@ -116,7 +116,7 @@
         "composite" : true,
         "composites" : {
           "client" : {
-            "realm-management" : [ "query-realms", "query-clients", "view-authorization", "view-events", "view-users", "manage-events", "manage-users", "view-realm", "impersonation", "query-users", "manage-clients", "manage-authorization", "create-client", "manage-identity-providers", "view-identity-providers", "query-groups", "view-clients", "manage-realm" ]
+            "realm-management" : [ "query-clients", "query-realms", "view-authorization", "view-events", "view-users", "manage-events", "manage-users", "view-realm", "impersonation", "query-users", "manage-clients", "manage-authorization", "create-client", "manage-identity-providers", "view-identity-providers", "query-groups", "view-clients", "manage-realm" ]
           }
         },
         "clientRole" : true,
@@ -392,6 +392,46 @@
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister" : false,
   "webAuthnPolicyPasswordlessAcceptableAaguids" : [ ],
   "webAuthnPolicyPasswordlessExtraOrigins" : [ ],
+  "users" : [ {
+    "id" : "8ec58aae-78ff-42ff-a65e-5259c8426749",
+    "username" : "service-account-dev",
+    "emailVerified" : false,
+    "createdTimestamp" : 1747902090472,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "dev",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-dev" ],
+    "clientRoles" : {
+      "realm-management" : [ "realm-admin" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "79883e91-d73d-40b2-9a9e-b7749a1971ce",
+    "username" : "testuser",
+    "firstName" : "Test",
+    "lastName" : "UserOne",
+    "email" : "testuser@example.com",
+    "emailVerified" : true,
+    "createdTimestamp" : 1747902526765,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "d709300c-1c02-47da-800f-0dad47788b55",
+      "type" : "password",
+      "createdDate" : 1747902526925,
+      "secretData" : "{\"value\":\"KDSlQtfOhJaxRooriBQpUr+jckvL6laBHc8fBvbDrwrmidZq2a07Pmzh3rJ46v0o8De7ojUJd2D2CUmy+X+X6g==\",\"salt\":\"ekrOGQZZPf4k3jetk4tgTg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-dev" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ],
   "scopeMappings" : [ {
     "clientScope" : "offline_access",
     "roles" : [ "offline_access" ]
@@ -557,8 +597,8 @@
       "client.secret.creation.time" : "1743766962",
       "backchannel.logout.session.required" : "true",
       "post.logout.redirect.uris" : "+",
-      "oauth2.device.authorization.grant.enabled" : "false",
       "display.on.consent.screen" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
       "backchannel.logout.revoke.offline.tokens" : "false"
     },
     "authenticationFlowBindingOverrides" : { },
@@ -1253,7 +1293,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-address-mapper", "oidc-usermodel-property-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-role-list-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper" ]
       }
     }, {
       "id" : "1359b9fc-c542-4d21-9219-d01636e4fdfc",
@@ -1285,7 +1325,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-address-mapper", "oidc-usermodel-property-mapper", "saml-user-property-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "saml-role-list-mapper", "oidc-full-name-mapper", "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
@@ -1864,6 +1904,14 @@
     "priority" : 90,
     "config" : { }
   }, {
+    "alias" : "delete_credential",
+    "name" : "Delete Credential",
+    "providerId" : "delete_credential",
+    "enabled" : true,
+    "defaultAction" : false,
+    "priority" : 100,
+    "config" : { }
+  }, {
     "alias" : "update_user_locale",
     "name" : "Update User Locale",
     "providerId" : "update_user_locale",
@@ -1893,7 +1941,7 @@
     "cibaInterval" : "5",
     "realmReusableOtpCode" : "false"
   },
-  "keycloakVersion" : "24.0.2",
+  "keycloakVersion" : "24.0.3",
   "userManagedAccessAllowed" : false,
   "clientProfiles" : {
     "profiles" : [ ]
