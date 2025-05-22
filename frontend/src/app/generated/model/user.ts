@@ -12,9 +12,10 @@
 
 
 export interface User { 
-    username: string;
-    email: string;
+    username?: string;
+    email?: string;
     firstName?: string;
     lastName?: string;
+    aboutMe?: string;
 }
 

@@ -1,0 +1,12 @@
+<div *ngIf="user$ | async as user">
+  <mat-card>
+    <mat-card-title>User Profile</mat-card-title>
+    <mat-card-content>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>First Name:</strong> {{ user.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+      <p><strong>About Me:</strong> {{ user.aboutMe }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
