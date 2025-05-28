@@ -1,0 +1,10 @@
+.navigation-wrapper {
+  display: flex;
+  flex-direction: row;
+  background: #cccccc;
+  justify-content: right;
+}
+
+.navigation-element {
+  margin: 5px;
+}

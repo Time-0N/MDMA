@@ -1,0 +1,12 @@
+.title-bar {
+  min-height: 10%;
+  width: 100%;
+  background: #dedede;
+  display: flex;
+  flex-direction: column;
+}
+
+.title  {
+  float: left;
+  margin-left: 20px;
+}
