@@ -1,0 +1,11 @@
+<mat-card class="auth-card">
+  <mat-button-toggle-group [value]="isLoginMode ? 'login' : 'register'" (change)="toggleAuthMode()" exclusive>
+    <mat-button-toggle value="login" (click)="isLoginMode = true">Login</mat-button-toggle>
+    <mat-button-toggle value="register" (click)="isLoginMode = false">Register</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <app-login-button *ngIf="isLoginMode"></app-login-button>
+
+  <app-register-button *ngIf="!isLoginMode"></app-register-button>
+
+</mat-card>
