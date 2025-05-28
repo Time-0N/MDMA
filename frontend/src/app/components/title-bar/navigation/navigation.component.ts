@@ -10,7 +10,6 @@ import {MatIcon} from '@angular/material/icon';
     MatButton,
     MatIcon
   ],
-  standalone: true,
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.css'
 })
