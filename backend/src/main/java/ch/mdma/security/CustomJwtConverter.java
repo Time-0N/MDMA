@@ -40,7 +40,7 @@ public class CustomJwtConverter implements Converter<Jwt, AbstractAuthentication
 
         String keycloakId = jwt.getSubject();
 
-        User user = userCache.getOrLoad(keycloakId, () -> userRepository.findById(keycloakId)
+        User user = userCache.getOrLoad(keycloakId, () -> userRepository.findByKeycloakId(keycloakId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in DB for keycloakId: " + keycloakId))
         );
 

@@ -16,14 +16,14 @@ spring:
     oauth2:
       resource server:
         jwt:
-          issuer-uri: http://localhost:8080/realms/dev
+          issuer-uri: http://mdma_keycloak_dev:8080/realms/dev
 
 logging:
   level:
     org.springframework.security: DEBUG
 
 keycloak:
-  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080}
+  auth-server-url: ${KEYCLOAK_URL:http://mdma_keycloak_dev:8080}
   realm: dev
   client-id: dev
   client-secret: QGzZYTwuVX21bB1513igRFmrVAM1zgM2

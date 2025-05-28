@@ -9,7 +9,8 @@ export const routes: Routes = [
     path: '', component: HomePageComponent
   },
   {
-    path: 'user-home', component: UserHomeComponent,
+    path: 'user-home',
+    component: UserHomeComponent,
     resolve: { userDataResolver: resolveUserDataConfiguration },
     canActivate: [authGuard]
   },
