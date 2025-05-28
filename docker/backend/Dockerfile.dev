@@ -1,0 +1,18 @@
+FROM gradle:8.6.0-jdk21
+WORKDIR /app
+
+COPY gradle/ gradle/
+COPY gradlew .
+COPY gradlew.bat .
+COPY settings.gradle.kts .
+COPY build.gradle.kts .
+COPY backend/build.gradle.kts backend/
+
+ENV GRADLE_USER_HOME=/gradle-cache
+ENV SPRING_PROFILES_ACTIVE=dev
+
+EXPOSE 9090
+EXPOSE 5005
+
+CMD ["./gradlew", "backend:bootRun", "--no-daemon", \
+     "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005'"] 
