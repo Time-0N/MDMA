@@ -7,7 +7,7 @@ import { TitleBarComponent } from './components/title-bar/title-bar.component';
   imports: [RouterOutlet, TitleBarComponent],
   templateUrl: './app.component.html',
   standalone: true,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'frontend';

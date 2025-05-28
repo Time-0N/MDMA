@@ -9,11 +9,12 @@ public class UserMapper {
     public static User toRest(ch.mdma.data.model.entity.User entity) {
         if (entity == null) return null;
 
-        User dto = new User();
-        dto.setUsername(entity.getUsername());
-        dto.setEmail(entity.getEmail());
-        dto.setFirstName(entity.getFirstName());
-        dto.setLastName(entity.getLastName());
-        return dto;
+        return new User(
+                entity.getUsername(),
+                entity.getEmail(),
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getAboutMe()
+        );
     }
 }
